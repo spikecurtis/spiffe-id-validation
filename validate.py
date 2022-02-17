@@ -88,6 +88,8 @@ if __name__ == "__main__":
         ("spiffe://Foo/bar", (False, None, None)),
         ("spiffe://foo:bar", (False, None, None)),
         ("spiffe://foo/bar", (True, "foo", "/bar")),
+        ("spiffe://foö/bar", (False, None, None)),
+        ("spiffe://foo/bär", (False, None, None)),
         ("spiffe://foo/", (False, None, None)),
         ("spiffe://foo", (True, "foo", "")),
         ("spiffe://foo.bar/Baz/buZ", (True, "foo.bar", "/Baz/buZ")), 
