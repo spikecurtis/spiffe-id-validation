@@ -21,7 +21,7 @@ PATH_SEGMENT_CHARS = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz012345
 
 # Returns  valid (bool), authority (string), path (string).  If valid is False, authority and path are set to None.
 def validate(spiffe_id):
-    # all must begin with spiffe://, which is 9 letters.  So anything under 10 cannot possibly be valid.
+    # all must begin with spiffe://, which is 9 characters.  So anything under 10 cannot possibly be valid.
     if len(spiffe_id) < 10:
         return False, None, None
 
@@ -31,13 +31,13 @@ def validate(spiffe_id):
     if substring(spiffe_id, cursor, 9) != "spiffe://":
         return False, None, None
 
-    # compute authority, checking valid letters until / or end of string.
+    # compute authority, checking valid characters until / or end of string.
     cursor = 9
     while cursor < len(spiffe_id):
         c = character_at(spiffe_id, cursor)
         if c == "/":
             break
-        # Note here that since valid letters does not include @ or :,
+        # Note here that since valid characters does not include @ or :,
         # this ensures that userinfo and port are not set in the authority 
         if c not in AUTHORITY_CHARS:
             return False, None, None
