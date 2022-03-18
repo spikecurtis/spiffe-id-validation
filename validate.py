@@ -48,6 +48,8 @@ def validate(spiffe_id):
     # Authority must not be empty.
     if len(authority) == 0:
         return False, None, None
+    if len(authority) > 255:
+        return False, None, None
 
     # A SPIFFE-ID that includes only the authority (empty-path) is valid.
     if len(path) == 0:
@@ -110,6 +112,10 @@ if __name__ == "__main__":
         ("spiffe://domain.test/path/validate?#fragment-1", (False, None, None)),
         ("spiffe://domain.test:8080/path/validate", (False, None, None)),
         ("spiffe://user:password@test.org/path/validate", (False, None, None)),
+        ("spiffe://areallyreallyreallyreallyreallyreallyreallyreallyreally"
+         "reallyreallyreallyreallyreallyreallyreallyreallyreallyreallyreally"
+         "reallyreallyreallyreallyreallyreallyreallyreallyreallyreallyreally"
+         "reallyreally.long.authority.that.exceedstwohundredfiftyfivecharacters", (False, None, None))
     ]
     for e, r in examples:
         v = validate(e)
